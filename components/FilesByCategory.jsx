@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { addToRecent, fetchFileSize } from "../redux/fileSlice";
 
-const Files = ({ files, setFiles }) => {
+const FilesByCategory = ({ files, setFiles }) => {
   const [selected, setSelected] = useState(null);
   const userInfo = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
@@ -210,4 +210,4 @@ const Files = ({ files, setFiles }) => {
   );
 };
 
-export default Files;
+export default FilesByCategory;

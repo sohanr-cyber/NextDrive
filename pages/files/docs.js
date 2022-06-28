@@ -15,7 +15,7 @@ import cookie from "cookie";
 import { currentFolder, recent } from "../../redux/folderSlice";
 import FilesByCategory from "../../components/FilesByCategory";
 
-const Folders = ({ data }) => {
+const Docs = ({ data }) => {
   const [fetchAgain, setFetchAgain] = useState(true);
   const [docs, setDocs] = useState(data);
   const router = useRouter();
@@ -51,7 +51,7 @@ const Folders = ({ data }) => {
   );
 };
 
-export default Folders;
+export default Docs;
 
 export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(

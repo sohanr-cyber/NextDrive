@@ -1,7 +1,6 @@
 import Head from "next/Head";
 import React, { useState, useEffect } from "react";
 import Left from "../../components/Left";
-import Mid from "../../components/Mid";
 import Navbar from "../../components/Navbar";
 import Right from "../../components/Right";
 import styles from "../../styles/Home.module.css";

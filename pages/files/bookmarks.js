@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import cookie from "cookie";
 import FilesByCategory from "../../components/FilesByCategory";
 
-const Folders = ({ data }) => {
+const Bookmark = ({ data }) => {
   const [fetchAgain, setFetchAgain] = useState(true);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Folders = ({ data }) => {
   );
 };
 
-export default Folders;
+export default Bookmark;
 
 export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(

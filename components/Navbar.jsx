@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Navbar.module.css";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import VideoFileIcon from "@mui/icons-material/VideoFile";
-import ImageIcon from "@mui/icons-material/Image";
-import AudioFileIcon from "@mui/icons-material/AudioFile";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+
 import Search from "./Search";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -18,11 +15,18 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const [open, setOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  
   const handleSignOut = () => {
     dispatch(logout());
     dispatch(clearRecent());
     router.push("/login");
   };
+
+  useEffect(() => {
+    if (!userInfo) {
+      router.push("/login");
+    }
+  }, []);
 
   console.log({ userInfo });
 
@@ -52,9 +56,9 @@ const Navbar = () => {
             onClick={() => setOpenProfile((prev) => !prev)}
           >
             {userInfo &&
-              (userInfo.user.pic ? (
+              (userInfo.user?.pic ? (
                 <Image
-                  src={userInfo.user.pic}
+                  src={userInfo.user?.pic}
                   width="28px"
                   height="28px"
                   alt=""
@@ -73,7 +77,7 @@ const Navbar = () => {
               {" "}
               <div className={styles.profileWrapper}>
                 <div className={styles.photo}>
-                  {userInfo && userInfo.user.pic ? (
+                  {userInfo && userInfo.user?.pic ? (
                     <Image
                       src={userInfo.user.pic}
                       width="45px"

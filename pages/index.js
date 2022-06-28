@@ -13,7 +13,7 @@ import NavRouter from "../components/NavRouter";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Home({ files, sizes }) {
+export default function Home({ files = [], sizes }) {
   const router = useRouter();
   const [folders, setFolders] = useState([]);
   const [fetchAgain, setFetchAgain] = useState(true);
