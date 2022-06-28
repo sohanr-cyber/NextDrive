@@ -1,0 +1,102 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4rem;
+}
+.btn {
+  cursor: pointer;
+  background: var(--theme);
+}
+
+.navLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form_container {
+}
+.form_container .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgoldenrodyellow;
+  margin: 10px 0;
+}
+
+.form_container .top .btn {
+  background: var(--icon);
+  padding: 6px;
+  text-align: center;
+  width: 100%;
+  border: 1px solid lightgrey;
+}
+
+.form_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 250px;
+  min-width: 250px;
+}
+
+.form_container .submit {
+  cursor: pointer;
+  text-align: center;
+  padding: 7px;
+  border: 1px solid lightgrey;
+  margin: 10px 0;
+  background-color: var(--theme);
+  background: var(--theme);
+}
+
+.form_container form input {
+  padding: 5px;
+  border: 1px solid lightgrey;
+}
+
+.form_container form input[type="file"] {
+  cursor: pointer;
+}
+
+/* .form_container form input[type="file"]::after {
+  content: "";
+  background: yellowgreen;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+} */
+
+.relative {
+  position: relative;
+  overflow: hidden;
+  max-height: 35px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  background-color: gold;
+  justify-content: center;
+}
+
+.relative input {
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  z-index: 0;
+  background-color: transparent !important;
+}
+.relative div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #333;
+  color: white;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

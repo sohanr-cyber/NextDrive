@@ -1,0 +1,181 @@
+.wrapper {
+  padding: 10px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  font-size: 95%;
+  font-weight: bold;
+}
+
+.flex {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.flex div {
+  padding: 3px;
+  /* border: 1px solid lightgrey; */
+}
+
+.files {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 95%;
+}
+.fileWrapper {
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.fileWrapper:hover {
+  background: var(--theme);
+}
+.file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 145px;
+}
+
+.icon {
+  color: var(--icon);
+}
+
+.action {
+  cursor: pointer;
+}
+
+.action input {
+  background-color: transparent;
+  color: transparent;
+  text-align: center;
+  max-width: 90px;
+  cursor: pointer;
+}
+
+.top .flex {
+  cursor: pointer;
+}
+
+.progressbar {
+  margin: 10px 0;
+}
+
+.box {
+  /* border: 1px solid lightgrey; */
+  height: 15px;
+  padding-bottom: 1px;
+  border-radius: 3px;
+  background-color: lightgrey;
+}
+
+.progress {
+  background: var(--theme);
+  height: 105%;
+  overflow: hidden;
+}
+
+.prgressFailed {
+  background: rgb(255, 0, 0);
+}
+
+.innerItem {
+  position: relative;
+}
+
+.shape {
+  position: absolute;
+  top: -25px;
+  right: 10px;
+
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 75%,
+    75% 75%,
+    75% 100%,
+    50% 75%,
+    0% 75%
+  );
+  width: 225px;
+  height: 125px;
+  background-color: lightgrey;
+}
+
+.action .name {
+  font-size: 90%;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.formContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9;
+}
+
+.formContainer form {
+  padding: 1.5rem;
+  background: var(--theme);
+  z-index: 10;
+}
+
+.formContainer input {
+  padding: 6px;
+  border: none;
+  border-radius: 3px;
+  margin: 10px 0;
+  /* border: 1px solid var(--icon); */
+}
+.formContainer input:hover {
+  border: 1px solid gold;
+}
+
+.formContainer .submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.formContainer .btn {
+  padding: 3px;
+  font-size: 90%;
+  border-radius: 3px;
+  text-align: center;
+  width: 45%;
+  cursor: pointer;
+}
+
+.formContainer .btn:nth-child(1) {
+  background-color: var(--btn1);
+}
+
+.formContainer .btn:nth-child(2) {
+  background-color: var(--icon);
+}
