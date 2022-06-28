@@ -88,7 +88,7 @@ const Register = () => {
           </div>
           <div
             className={styles.submit}
-            onClick={() => handleLogin("sohanur@gmail.com", "sohanur123")}
+            onClick={() => handleLogin("sohanur@gmail.com", "123")}
           >
             Login As Guest User
           </div>

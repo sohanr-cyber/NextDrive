@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import User from "../../../models/User";
 import db from "../../../utils/db";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { signToken } from "../../../utils/auth";
 
 const handler = nc();
@@ -17,7 +17,7 @@ handler.post(async (req, res) => {
       return res.status(404).send({ message: "Not found" });
     }
 
-    const match = bcrypt.compare(password, existingUser.hashpassword, 10);
+    const match = bcrypt.compareSync(password, existingUser.hashpassword, 10);
 
     if (!match) {
       return res.status(404).send({ message: "Wrong Password" });

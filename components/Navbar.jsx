@@ -15,18 +15,12 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const [open, setOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  
+
   const handleSignOut = () => {
     dispatch(logout());
     dispatch(clearRecent());
     router.push("/login");
   };
-
-  useEffect(() => {
-    if (!userInfo) {
-      router.push("/login");
-    }
-  }, []);
 
   console.log({ userInfo });
 
@@ -42,14 +36,16 @@ const Navbar = () => {
             NEXT<span>DRIVE</span>
           </div>
         </div>
+        {userInfo && (
+          <div className={styles.search}>
+            <input
+              type="text"
+              className={styles.field}
+              onClick={() => setOpen(true)}
+            />
+          </div>
+        )}
 
-        <div className={styles.search}>
-          <input
-            type="text"
-            className={styles.field}
-            onClick={() => setOpen(true)}
-          />
-        </div>
         <div className={styles.profile}>
           <div
             className={styles.pic}
