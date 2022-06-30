@@ -61,7 +61,6 @@ const Folders = ({ id, currentDirectory }) => {
     dispatch(currentFolder(currentDirectory));
   }, [id]);
 
-  
   useEffect(() => {
     fetch();
   }, [router.query.id, fetchAgain]);
@@ -121,7 +120,7 @@ export async function getServerSideProps(context) {
 
   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get(`http://localhost:3000/api/folder/${id}`, {
+  const { data } = await axios.get(`${process.env.BASE_URL}/api/folder/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

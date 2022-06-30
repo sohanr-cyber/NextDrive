@@ -74,7 +74,7 @@ export async function getServerSideProps(context) {
 
   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get("http://localhost:3000/api/file/photo", {
+  const { data } = await axios.get(`${process.env.BASE_URL}/api/file/photo`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
