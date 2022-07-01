@@ -69,7 +69,7 @@ export async function getServerSideProps(context) {
 
   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get(`${process.env.BASE_URL}/api/file/video`, {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/video`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

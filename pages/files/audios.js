@@ -70,11 +70,14 @@ export async function getServerSideProps(context) {
 
   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get(`${process.env.BASE_URL}/api/file/audio`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/file/audio`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return {
     props: { data },

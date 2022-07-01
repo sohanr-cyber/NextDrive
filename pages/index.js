@@ -106,7 +106,7 @@ export async function getServerSideProps(context) {
     }
   );
 
-  const res = await axios.get(`${process.env.BASE_URL}/api/file/size`, {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/size`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

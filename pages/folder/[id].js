@@ -120,11 +120,15 @@ export async function getServerSideProps(context) {
 
   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get(`${process.env.BASE_URL}/api/folder/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/folder/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   console.log({ data });
   return {
     props: { currentDirectory: data, id },
