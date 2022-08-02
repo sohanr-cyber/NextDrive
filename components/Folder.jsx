@@ -8,6 +8,8 @@ import { fileName } from "../utils/helper";
 import { useSnackbar } from "notistack";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
+import Move from "./Move";
 
 const Folder = ({ home, folders, setFetchAgain }) => {
   const [folderName, setFolderName] = useState("");
@@ -18,6 +20,8 @@ const Folder = ({ home, folders, setFetchAgain }) => {
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [renaming, setRenaming] = useState(false);
   const [folderToUpdate, setFolderToUpdate] = useState(null);
+  const [moving, setMoving] = useState(null);
+  const [folderTobeMoved, setfolderTobeMoved] = useState(null);
 
   const handleAction = () => {};
 
@@ -108,6 +112,8 @@ const Folder = ({ home, folders, setFetchAgain }) => {
     }
   };
 
+  
+
   return (
     <div className={styles.wrapper}>
       {open && !home && (
@@ -160,6 +166,20 @@ const Folder = ({ home, folders, setFetchAgain }) => {
         </>
       )}
 
+      {moving && (
+        <div className={styles.formContainer}>
+          {
+            <Move
+              moving={moving}
+              setMoving={setMoving}
+              isFolder={true}
+              setFetchAgain={setFetchAgain}
+              folderTobeMoved={folderTobeMoved}
+            />
+          }
+        </div>
+      )}
+
       <div className={styles.folders}>
         <div className={styles.top}>
           <div className={styles.title}>
@@ -199,6 +219,12 @@ const Folder = ({ home, folders, setFetchAgain }) => {
                       }}
                     />
                     {/* <DeleteIcon onClick={() => handleDelete()} /> */}
+                    <DriveFileMoveIcon
+                      onClick={() => {
+                        setMoving(folder.parentFolder);
+                        setfolderTobeMoved(folder._id);
+                      }}
+                    />
                   </div>
                 )}
               </div>

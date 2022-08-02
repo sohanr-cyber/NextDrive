@@ -1,0 +1,61 @@
+.wrapper {
+  min-width: 300px;
+  background-color: white;
+  border: 1px solid var(--icon);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 5px;
+  border-bottom: 1px solid black;
+  background: var(--theme);
+}
+
+.top .left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.location {
+  min-height: 350px;
+  background-color: rgb(254, 249, 220);
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 5px;
+  background: var(--themeReverse);
+  width: 100%;
+}
+
+.item {
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  /* align-items: center; */
+  gap: 5px;
+}
+
+.item:hover {
+  background: gold;
+}
+
+.bottom .addFolder {
+  color: var(--icon);
+  cursor: pointer;
+}
+
+.bottom .btn {
+  text-align: center;
+  background-color: var(--btn1);
+  padding: 3px 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}

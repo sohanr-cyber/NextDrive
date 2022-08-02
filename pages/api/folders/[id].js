@@ -15,11 +15,11 @@ handler.get(async (req, res) => {
       parentFolder: req.query.id,
       trashed: false,
     })
-      // .populate({
-      //   path: "parentFolder",
-      //   select: { name: 1, _id: 1, path: 1 },
-      // })
-      .select("_id , name");
+      .populate({
+        path: "parentFolder",
+        select: { name: 1, _id: 1 },
+      })
+      .select("_id , name , parentFolder");
     console.log({ folders });
 
     await db.disconnect();

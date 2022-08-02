@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { currentFolder, recent } from "../../redux/folderSlice";
 import { filesbyFolder } from "../../redux/fileSlice";
 
-const Folders = ({ id, currentDirectory }) => {
+const Folders = ({ id, currentDirectory, path }) => {
   const [fetchAgain, setFetchAgain] = useState(true);
   const [fetchFileAgain, setFetchFileAgain] = useState(false);
   const router = useRouter();
@@ -84,10 +84,7 @@ const Folders = ({ id, currentDirectory }) => {
             <Left />
           </div>
           <div className={styles.mid}>
-            <NavRouter
-              path={currentDirectory.path}
-              current={currentDirectory.name}
-            />
+            <NavRouter path={path} current={currentDirectory.name} />
             <Folder folders={folders} setFetchAgain={setFetchAgain} />
             <Files
               files={files}
@@ -129,8 +126,17 @@ export async function getServerSideProps(context) {
     }
   );
 
+  const resp = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/folder/path/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   console.log({ data });
   return {
-    props: { currentDirectory: data, id },
+    props: { currentDirectory: data, id, path: resp.data },
   };
 }

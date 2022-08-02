@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
 
   console.log({ type: typeof token });
   const { data: files } = await axios.get(
-    "http://localhost:3000/api/file/recent",
+    `${process.env.NEXT_PUBLIC_URL}/api/file/recent`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

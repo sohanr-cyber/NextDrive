@@ -10,19 +10,12 @@ import Folder from "../../components/Folder";
 import NavRouter from "../../components/NavRouter";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useRouter } from "next/router";
 import cookie from "cookie";
-import { currentFolder, recent } from "../../redux/folderSlice";
 import FilesByCategory from "../../components/FilesByCategory";
 
 const Audio = ({ data }) => {
-  const [fetchAgain, setFetchAgain] = useState(true);
-
-  const router = useRouter();
-  const dispatch = useDispatch();
   const [audios, setAudios] = useState(data);
 
-  const userInfo = useSelector((state) => state.user.userInfo);
   console.log({ audios });
 
   return (

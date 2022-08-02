@@ -19,9 +19,13 @@ const NavRouter = ({ path, current }) => {
         <span className={styles.route}> Drive</span>
         <NavigateNextIcon className={styles.navIcon} />
       </div>
+
       {path?.map((item, k) => (
         <div
           className={styles.nav}
+          // style={{
+          //   color: `${router.query.id == item._id ? "black" : ""}`,
+          // }}
           key={k}
           onClick={() => router.push(`/folder/${item._id}`)}
         >
@@ -31,11 +35,6 @@ const NavRouter = ({ path, current }) => {
           </>
         </div>
       ))}
-      <div className={`${styles.nav} ${styles.current}`}>
-        <>
-          <span className={styles.route}>{current}</span>{" "}
-        </>
-      </div>
     </div>
   );
 };
