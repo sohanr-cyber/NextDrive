@@ -13,15 +13,12 @@ import NavRouter from "../components/NavRouter";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Home() {
-  //{ files = [], sizes })
+export default function Home({ files = [], sizes }) {
   const router = useRouter();
   const [folders, setFolders] = useState([]);
   const [fetchAgain, setFetchAgain] = useState(true);
   const userInfo = useSelector((state) => state.user.userInfo);
   const recentFiles = useSelector((state) => state.file.recentFiles);
-  const [files, setFiles] = useState([]);
-  const [sizes, setSizes] = useState(null);
 
   console.log({ sizes });
 
@@ -43,32 +40,6 @@ export default function Home() {
     };
     fetch();
   }, [fetchAgain]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data: files } = await axios.get("/api/file/recent", {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-
-        setFiles(files);
-
-        const res = await axios.get("/api/file/size", {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-
-        setSizes(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -112,35 +83,35 @@ export default function Home() {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const parsedCookies = cookie.parse(
-//     context.req.headers.cookie ? context.req.headers.cookie : ""
-//   );
-//   const userInfo = parsedCookies.userInfo;
+export async function getServerSideProps(context) {
+  const parsedCookies = cookie.parse(
+    context.req.headers.cookie ? context.req.headers.cookie : ""
+  );
+  const userInfo = parsedCookies.userInfo;
 
-//   if (!userInfo) {
-//     return { props: {}, redirect: "/login" };
-//   }
+  if (!userInfo) {
+    return { props: {}, redirect: "/login" };
+  }
 
-//   const token = JSON.parse(userInfo).token;
-//   // const accessToken = JSON.parse(token);
+  const token = JSON.parse(userInfo).token;
+  // const accessToken = JSON.parse(token);
 
-//   console.log({ type: typeof token });
-//   const { data: files } = await axios.get(
-//     `${process.env.NEXT_PUBLIC_URL}/api/file/recent`,
-//     {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     }
-//   );
+  console.log({ type: typeof token });
+  const { data: files } = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/file/recent`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-//   const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/size`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/size`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-//   // Pass data to the page via props
-//   return { props: { files, sizes: res.data } };
-// }
+  // Pass data to the page via props
+  return { props: { files, sizes: res.data } };
+}
