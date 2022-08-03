@@ -54,25 +54,25 @@ const Bookmark = ({ data }) => {
 
 export default Bookmark;
 
-export async function getServerSideProps(context) {
-  const parsedCookies = cookie.parse(
-    context.req.headers.cookie ? context.req.headers.cookie : ""
-  );
-  const userInfo = parsedCookies.userInfo;
+// export async function getServerSideProps(context) {
+//   const parsedCookies = cookie.parse(
+//     context.req.headers.cookie ? context.req.headers.cookie : ""
+//   );
+//   const userInfo = parsedCookies.userInfo;
 
-  if (!userInfo) {
-    return { props: {}, redirect: "/login" };
-  }
+//   if (!userInfo) {
+//     return { props: {}, redirect: "/login" };
+//   }
 
-  const token = JSON.parse(userInfo).token;
+//   const token = JSON.parse(userInfo).token;
 
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/star`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+//   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/file/star`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
 
-  return {
-    props: { data },
-  };
-}
+//   return {
+//     props: { data },
+//   };
+// }

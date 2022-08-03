@@ -55,11 +55,11 @@ export default function Home() {
 
         setFiles(files);
 
-        // const res = await axios.get("/api/file/size", {
-        //   headers: {
-        //     Authorization: `Bearer ${userInfo.token}`,
-        //   },
-        // });
+        const res = await axios.get("/api/file/size", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
 
         setSizes(res.data);
       } catch (error) {
