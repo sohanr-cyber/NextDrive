@@ -14,13 +14,13 @@ import { useRouter } from "next/router";
 import { currentFolder, recent } from "../../redux/folderSlice";
 import { filesbyFolder } from "../../redux/fileSlice";
 
-const Folders = ({ id, currentDirectory, path, Folders }) => {
+const Folders = ({ id, currentDirectory, path }) => {
   const [fetchAgain, setFetchAgain] = useState(true);
   const [fetchFileAgain, setFetchFileAgain] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [folders, setFolders] = useState(Folders);
+  const [folders, setFolders] = useState([]);
 
   const userInfo = useSelector((state) => state.user.userInfo);
   const files = useSelector((state) => state.file.currentFiles);
@@ -39,14 +39,33 @@ const Folders = ({ id, currentDirectory, path, Folders }) => {
     }
   };
 
+  const fetch = async () => {
+    try {
+      const { data } = await axios.get(`/api/folders/${id}`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+
+      setFolders(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (!userInfo) {
       router.push("/login");
     }
     dispatch(currentFolder(currentDirectory));
-    setFolders(Folder);
   }, [id]);
 
+
+  useEffect(() => {
+    fetch();
+  }, [id]);
+
+  
   useEffect(() => {
     fetchFiles();
   }, [id, fetchFileAgain]);
@@ -121,16 +140,7 @@ export async function getServerSideProps(context) {
     }
   );
 
-  const { data: Folders } = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL}/api/folders/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
   return {
-    props: { currentDirectory: data, id, path: resp.data, Folders },
+    props: { currentDirectory: data, id, path: resp.data },
   };
 }
