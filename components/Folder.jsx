@@ -11,7 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 import Move from "./Move";
 
-const Folder = ({ home, folders, setFetchAgain }) => {
+const Folder = ({ home, folders, setFetchAgain, setFolders }) => {
   const [folderName, setFolderName] = useState("");
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -50,7 +50,9 @@ const Folder = ({ home, folders, setFetchAgain }) => {
       enqueueSnackbar("New Folder Created", { variant: "success" });
 
       setFolderName("");
-      setFetchAgain((prev) => !prev);
+      setFolders((prev) => [...prev, data]);
+
+      // setFetchAgain((prev) => !prev);
       setOpen(false);
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
@@ -79,7 +81,8 @@ const Folder = ({ home, folders, setFetchAgain }) => {
         },
       });
 
-      setFetchAgain((prev) => !prev);
+      setFolders(folders.filter((item) => item._id != data._id));
+      // setFetchAgain((prev) => !prev);
       enqueueSnackbar("Folder Deleted", {
         variant: "info",
       });
@@ -102,7 +105,12 @@ const Folder = ({ home, folders, setFetchAgain }) => {
         }
       );
 
-      setFetchAgain((prev) => !prev);
+      setFolders(
+        folders.map((item) =>
+          item._id == folderToUpdate ? { ...item, name: folderName } : item
+        )
+      );
+      // setFetchAgain((prev) => !prev);
       enqueueSnackbar("Folder Renamed", {
         variant: "success",
       });
@@ -111,8 +119,6 @@ const Folder = ({ home, folders, setFetchAgain }) => {
       console.log(error);
     }
   };
-
-  
 
   return (
     <div className={styles.wrapper}>

@@ -14,41 +14,26 @@ import { useRouter } from "next/router";
 import { currentFolder, recent } from "../../redux/folderSlice";
 import { filesbyFolder } from "../../redux/fileSlice";
 
-const Folders = ({ id, currentDirectory, path }) => {
+const Folders = ({ id, currentDirectory, path, Folders }) => {
   const [fetchAgain, setFetchAgain] = useState(true);
   const [fetchFileAgain, setFetchFileAgain] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [folders, setFolders] = useState([]);
-  // const [files, setFiles] = useState([]);
+  const [folders, setFolders] = useState(Folders);
+
   const userInfo = useSelector((state) => state.user.userInfo);
   const files = useSelector((state) => state.file.currentFiles);
 
-  const fetchFiles = async (req, res) => {
+  const fetchFiles = async () => {
     try {
       const { data } = await axios.get(`/api/file/${router.query.id}`, {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      // setFiles(data);
+
       dispatch(filesbyFolder(data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetch = async () => {
-    try {
-      const { data } = await axios.get(`/api/folders/${id}`, {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-
-      console.log(data);
-      setFolders(data);
     } catch (error) {
       console.log(error);
     }
@@ -59,11 +44,8 @@ const Folders = ({ id, currentDirectory, path }) => {
       router.push("/login");
     }
     dispatch(currentFolder(currentDirectory));
+    setFolders(Folder);
   }, [id]);
-
-  useEffect(() => {
-    fetch();
-  }, [router.query.id, fetchAgain]);
 
   useEffect(() => {
     fetchFiles();
@@ -85,7 +67,11 @@ const Folders = ({ id, currentDirectory, path }) => {
           </div>
           <div className={styles.mid}>
             <NavRouter path={path} current={currentDirectory.name} />
-            <Folder folders={folders} setFetchAgain={setFetchAgain} />
+            <Folder
+              folders={folders}
+              setFetchAgain={setFetchAgain}
+              setFolders={setFolders}
+            />
             <Files
               files={files}
               inFolder={true}
@@ -135,8 +121,16 @@ export async function getServerSideProps(context) {
     }
   );
 
-  console.log({ data });
+  const { data: Folders } = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/folders/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   return {
-    props: { currentDirectory: data, id, path: resp.data },
+    props: { currentDirectory: data, id, path: resp.data, Folders },
   };
 }

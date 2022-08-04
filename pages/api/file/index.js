@@ -35,12 +35,11 @@ handler.post(async (req, res) => {
       createdBy: req.user._id,
     });
     const file = await newFile.save();
-    res.status(200).send({ newFile });
+    res.status(200).send(file);
   } catch (error) {
     console.log({ error });
     res.status(500).send({ error: error });
   }
 });
-
 
 export default handler;

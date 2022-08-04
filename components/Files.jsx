@@ -25,7 +25,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { fileName, path } from "../utils/helper";
-import { addToRecent, clearRecent } from "../redux/fileSlice";
+import { addToRecent, clearRecent, filesbyFolder } from "../redux/fileSlice";
 import moment from "moment";
 
 const Files = ({ inFolder, files, setFetchFileAgain, title, recent }) => {
@@ -108,7 +108,9 @@ const Files = ({ inFolder, files, setFetchFileAgain, title, recent }) => {
       setUrl(null);
       setFile(null);
       console.log({ data });
-      setFetchFileAgain((prev) => !prev);
+
+      dispatch(filesbyFolder([...files, data]));
+      // setFetchFileAgain((prev) => !prev);
     } catch (error) {
       enqueueSnackbar("Something went Wrong", {
         variant: "error",
@@ -131,7 +133,13 @@ const Files = ({ inFolder, files, setFetchFileAgain, title, recent }) => {
         }
       );
 
-      setFetchFileAgain((prev) => !prev);
+      dispatch(
+        filesbyFolder(
+          files.map((item) => (item._id == data._id ? { ...item, name } : item))
+        )
+      );
+
+      // setFetchFileAgain((prev) => !prev);
       enqueueSnackbar("Fle Renamed", {
         variant: "success",
       });
@@ -178,8 +186,21 @@ const Files = ({ inFolder, files, setFetchFileAgain, title, recent }) => {
         enqueueSnackbar(`Added To Trash`, {
           variant: "info",
         });
+
+        dispatch(filesbyFolder(files.filter((item) => item._id != data._id)));
+      } else {
+        dispatch(
+          filesbyFolder(
+            files.map((item) =>
+              item._id == data._id
+                ? { ...item, stared: item.stared ? false : true }
+                : item
+            )
+          )
+        );
       }
-      setFetchFileAgain((prev) => !prev);
+
+      // setFetchFileAgain((prev) => !prev);
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
       console.log({ error });
